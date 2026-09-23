@@ -15,23 +15,22 @@ html, body {
     overflow: hidden;
 }
 
-/* KOTAK UTAMA (Menggunakan tag main asli template) */
+/* KOTAK UTAMA */
 main.speedometer {
     position: fixed !important;
     bottom: 25px !important;
     right: 25px !important;
     width: 280px !important;
     
-    /* Gunakan background yang sedikit lebih solid (opasitas dinaikkan ke 0.85 atau 0.9) */
-    background: rgba(28, 28, 30, 0.88) !important;
-    
-    /* Hapus atau nonaktifkan baris backdrop-filter karena memicu bug kotak hitam di FiveM */
-    /* backdrop-filter: blur(20px) saturate(180%) !important; */
-    /* -webkit-backdrop-filter: blur(20px) saturate(180%) !important; */
+    /* Menggunakan format warna gelap transparan yang stabil di CEF FiveM */
+    background-color: #1c1c1eE6 !important; /* E6 setara dengan ~90% opacity */
     
     border-radius: 28px !important;
+    
+    /* PENTING: JANGANGUNAKAN box-shadow karena ini yang memicu kotak hitam di FiveM NUI */
+    
+    /* Border tipis putih transparan (aman jika menggunakan rgba putih) */
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
     
     color: white !important;
     padding: 18px !important;
@@ -54,7 +53,6 @@ dl {
     gap: 8px;
 }
 
-/* Menyembunyikan teks label bawaan template agar digantikan tampilan modern */
 dt {
     font-size: 0.6rem;
     font-weight: 600;
@@ -63,7 +61,6 @@ dt {
     letter-spacing: 0.5px;
 }
 
-/* Menghilangkan titik dua (:) bawaan template */
 dt::after {
     content: "" !important;
 }
@@ -75,7 +72,6 @@ dd {
     color: #ffffff;
 }
 
-/* Penekanan khusus untuk Kecepatan agar besar dan mencolok */
 #speed {
     font-size: 1.6rem;
     font-weight: 700;
