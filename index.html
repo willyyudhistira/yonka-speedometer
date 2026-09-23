@@ -3,57 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FiveM Speedometer - Clean</title>
+    <title>FiveM Speedometer - New UI</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="speedometer">
-        <!-- Bagian Kiri -->
-        <div class="sec-left">
-            <div class="item">
-                <div class="label">Engine</div>
-                <div class="value" id="engine">Off</div>
-            </div>
-            <div class="item">
-                <div class="label">Speed</div>
-                <div class="value" id="speed">0 MPH</div>
-            </div>
-            <div class="item">
-                <div class="label">RPM</div>
-                <div class="value" id="rpm">0.0000 RPM</div>
-            </div>
-            <div class="item">
-                <div class="label">Fuel</div>
-                <div class="value" id="fuel">0.0%</div>
-            </div>
-            <div class="item">
-                <div class="label">Health</div>
-                <div class="value" id="health">100.0%</div>
-            </div>
+    <div class="speedometer-hud">
+        <div class="speed-section">
+            <span id="speed">0 MPH</span>
+            <span class="gear-badge">G: <span id="gear">0</span></span>
         </div>
         
-        <!-- Bagian Kanan -->
-        <div class="sec-right">
-            <div class="item">
-                <div class="label">Gear</div>
-                <div class="value" id="gear">0</div>
-            </div>
-            <div class="item">
-                <div class="label">Headlights</div>
-                <div class="value" id="headlights">Off</div>
-            </div>
-            <div class="item">
-                <div class="label">Indicators</div>
-                <div class="value" id="indicators">Off / Off</div>
-            </div>
-            <div class="item">
-                <div class="label">Seatbelts</div>
-                <div class="value" id="seatbelts">Off</div>
-            </div>
-            <div class="item">
-                <div class="label">Odometer</div>
-                <div class="value" id="odometer">0.0 Miles</div>
-            </div>
+        <div class="info-section">
+            <div class="info-row"><span>Eng:</span> <span id="engine">Off</span></div>
+            <div class="info-row"><span>RPM:</span> <span id="rpm">0.0000</span></div>
+            <div class="info-row"><span>Fuel:</span> <span id="fuel">0.0%</span></div>
+            <div class="info-row"><span>Hlt:</span> <span id="health">100.0%</span></div>
+            <div class="info-row"><span>Lgt:</span> <span id="headlights">Off</span></div>
+            <div class="info-row"><span>Ind:</span> <span id="indicators">Off / Off</span></div>
+            <div class="info-row"><span>Belt:</span> <span id="seatbelts">Off</span></div>
+            <div class="info-row"><span>Odo:</span> <span id="odometer">0.0 Miles</span></div>
         </div>
     </div>
 
