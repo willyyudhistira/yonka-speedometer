@@ -15,19 +15,20 @@ html, body {
     overflow: hidden;
 }
 
-/* KOTAK UTAMA - Dikembalikan ke gaya asli tanpa efek */
+/* KOTAK UTAMA - Tanpa border-radius sama sekali */
 main.speedometer {
     position: fixed !important;
     bottom: 25px !important;
     right: 25px !important;
     width: 280px !important;
     
-    /* Menggunakan background polos standar template asli (#000000AA) */
+    /* Background dasar hitam transparan */
     background-color: #000000AA !important;
     
-    /* Hapus semua border, shadow, dan efek blur */
+    /* PENTING: border-radius di-nol-kan untuk menghindari bug kotak hitam CEF */
+    border-radius: 0px !important;
+    
     border: none !important;
-    border-radius: 10px !important;
     box-shadow: none !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
