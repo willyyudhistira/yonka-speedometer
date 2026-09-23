@@ -62,5 +62,13 @@
         </div>
     </main>
     <script src="script.js"></script>
+    <script>
+        // Jika tidak mendeteksi environment bawaan FiveM (invokeNative), 
+        // maka ubah latar belakang menjadi gelap agar preview terlihat.
+        if (!window.invokeNative) {
+            document.body.style.backgroundColor = "#1c1c1e";
+            document.body.style.backgroundImage = "radial-gradient(circle, #3a3a3c 0%, #1c1c1e 100%)";
+        }
+    </script>
 </body>
 </html>
