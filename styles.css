@@ -6,11 +6,9 @@
     padding: 0;
 }
 
-body {
-    /* UBAH ke 'transparent !important' saat Anda memasukkannya ke server FiveM */
+html, body {
+    background: transparent !important;
     background-color: transparent !important; 
-    
-    /* Menggunakan font bawaan sistem Apple (San Francisco) */
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color: #ffffff;
     overflow: hidden;
