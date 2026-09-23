@@ -36,20 +36,20 @@ function setRPM(rpm) {
     elements.rpm.innerText = `${rpm.toFixed(4)} RPM`;
 }
 
-/**
- * Updates the fuel level display as a percentage.
- * @param {number} fuel - The fuel level (0 to 1).
- */
 function setFuel(fuel) {
     elements.fuel.innerText = `${(fuel * 100).toFixed(1)}%`;
+    let fuelBar = document.getElementById('fuel-bar');
+    if (fuelBar) {
+        fuelBar.style.width = `${Math.max(0, Math.min(100, fuel * 100))}%`;
+    }
 }
 
-/**
- * Updates the vehicle health display as a percentage.
- * @param {number} health - The vehicle health level (0 to 1).
- */
 function setHealth(health) {
     elements.health.innerText = `${(health * 100).toFixed(1)}%`;
+    let healthBar = document.getElementById('health-bar');
+    if (healthBar) {
+        healthBar.style.width = `${Math.max(0, Math.min(100, health * 100))}%`;
+    }
 }
 
 /**
