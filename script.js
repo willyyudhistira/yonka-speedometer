@@ -4,36 +4,38 @@ let indicators = 0;
 
 const onOrOff = state => state ? 'On' : 'Off';
 
-/**
- * Updates the display of the engine state.
- *
- * @param {boolean} state If true, the engine is on; otherwise, it is off.
- * @description Sets the engine state display based on the provided boolean state.
- */
 function setEngine(state) {
     elements.engine.innerText = onOrOff(state);
-}
-
-/**
- * Updates the speed display based on the current speed mode.
- * @param {number} speed - The speed value in meters per second (m/s).
- * @description Converts the speed value to the current speed mode and updates the display.
- */
-function setSpeed(speed) {
-    switch(speedMode)
-    {
-        case 1: speed = elements.speed.innerText = `${Math.round(speed * 2.236936)} MPH`; break; // MPH
-        case 2: speed = elements.speed.innerText = `${Math.round(speed * 1.943844)} Knots`; break; // Knots
-        default: speed = elements.speed.innerText = `${Math.round(speed * 3.6)} KMH`; // KMH
+    let badge = document.getElementById('engine-badge');
+    if (badge) {
+        if (state) badge.classList.add('active');
+        else badge.classList.remove('active');
     }
 }
 
-/**
- * Updates the RPM (Revolutions Per Minute) display.
- * @param {number} rpm - The RPM value to display. (0 to 1).
- */
+function setSpeed(speedVal) {
+    let convertedSpeed = 0;
+    switch(speedMode) {
+        case 1: 
+            convertedSpeed = Math.round(speedVal * 2.236936);
+            elements.speed.innerText = `${convertedSpeed} MPH`; 
+            break; 
+        case 2: 
+            convertedSpeed = Math.round(speedVal * 1.943844);
+            elements.speed.innerText = `${convertedSpeed} Knots`; 
+            break; 
+        default: 
+            convertedSpeed = Math.round(speedVal * 3.6);
+            elements.speed.innerText = `${convertedSpeed} KMH`;
+    }
+}
+
 function setRPM(rpm) {
     elements.rpm.innerText = `${rpm.toFixed(4)} RPM`;
+    let rpmBar = document.getElementById('rpm-bar');
+    if (rpmBar) {
+        rpmBar.style.width = `${Math.max(0, Math.min(100, rpm * 100))}%`;
+    }
 }
 
 function setFuel(fuel) {
@@ -52,71 +54,78 @@ function setHealth(health) {
     }
 }
 
-/**
- * Updates the current gear display.
- * @param {number} gear - The current gear to display. 0 represents neutral/reverse.
- */
 function setGear(gear) {
     elements.gear.innerText = String(gear);
 }
 
-/**
- * Updates the headlights status display.
- * @param {number} state - The headlight state (0: Off, 1: On, 2: High Beam).
- */
 function setHeadlights(state) {
-    switch(state)
-    {
-        case 1: elements.headlights.innerText = 'On'; break;
-        case 2: elements.headlights.innerText = 'High Beam'; break;
-        default: elements.headlights.innerText = 'Off';
+    let lightsText = 'Off';
+    let badge = document.getElementById('lights-badge');
+    switch(state) {
+        case 1: lightsText = 'On'; break;
+        case 2: lightsText = 'High Beam'; break;
+        default: lightsText = 'Off';
+    }
+    elements.headlights.innerText = lightsText;
+    if (badge) {
+        if (state > 0) badge.classList.add('active');
+        else badge.classList.remove('active');
     }
 }
 
-/**
- * Sets the state of the left turn indicator and updates the display.
- * @param {boolean} state - If true, turns the left indicator on; otherwise, turns it off.
- */
 function setLeftIndicator(state) {
     indicators = (indicators & 0b10) | (state ? 0b01 : 0b00);
-    elements.indicators.innerText = `${indicators & 0b01 ? 'On' : 'Off'} / ${indicators & 0b10 ? 'On' : 'Off'}`;
+    updateIndicatorsDisplay();
 }
 
-/**
- * Sets the state of the right turn indicator and updates the display.
- * @param {boolean} state - If true, turns the right indicator on; otherwise, turns it off.
- */
 function setRightIndicator(state) {
     indicators = (indicators & 0b01) | (state ? 0b10 : 0b00);
-    elements.indicators.innerText = `${indicators & 0b01 ? 'On' : 'Off'} / ${indicators & 0b10 ? 'On' : 'Off'}`;
+    updateIndicatorsDisplay();
 }
 
-/**
- * Updates the seatbelt status display.
- * @param {boolean} state - If true, indicates seatbelts are fastened; otherwise, indicates they are not.
- */
+function updateIndicatorsDisplay() {
+    let left = indicators & 0b01 ? 'On' : 'Off';
+    let right = indicators & 0b10 ? 'On' : 'Off';
+    elements.indicators.innerText = `${left} / ${right}`;
+}
+
 function setSeatbelts(state) {
     elements.seatbelts.innerText = onOrOff(state);
+    let badge = document.getElementById('belt-badge');
+    if (badge) {
+        if (state) badge.classList.add('active');
+        else badge.classList.remove('active');
+    }
 }
 
-/**
- * Sets the speed display mode and updates the speed unit display.
- * @param {number} mode - The speed mode to set (0: KMH, 1: MPH, 2: Knots).
- */
 function setSpeedMode(mode) {
     speedMode = mode;
 }
 
-/**
- * Updates the odometer display.
- * @param {number} distance - The distance in miles.
- */
-function setOdometer(distance)
-{
+function setOdometer(distance) {
     elements.odometer.innerText = distance.toFixed(1) + ' Miles';
 }
 
-// Wait for the DOM to be fully loaded
+window.addEventListener('message', (event) => {
+    let data = event.data;
+    if (data.type === "updateStatus") {
+        if (data.show !== undefined) {
+            document.body.style.display = data.show ? 'block' : 'none';
+        }
+        if (data.engine !== undefined) setEngine(data.engine);
+        if (data.speed !== undefined) setSpeed(data.speed);
+        if (data.rpm !== undefined) setRPM(data.rpm);
+        if (data.fuel !== undefined) setFuel(data.fuel);
+        if (data.health !== undefined) setHealth(data.health);
+        if (data.gear !== undefined) setGear(data.gear);
+        if (data.headlights !== undefined) setHeadlights(data.headlights);
+        if (data.leftIndicator !== undefined) setLeftIndicator(data.leftIndicator);
+        if (data.rightIndicator !== undefined) setRightIndicator(data.rightIndicator);
+        if (data.seatbelts !== undefined) setSeatbelts(data.seatbelts);
+        if (data.odometer !== undefined) setOdometer(data.odometer);
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     elements = {
         engine: document.getElementById('engine'),
