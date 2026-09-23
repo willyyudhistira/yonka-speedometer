@@ -22,14 +22,16 @@ main.speedometer {
     right: 25px !important;
     width: 280px !important;
     
-    /* Efek Transparansi & Frosted Glass iOS */
-    background: rgba(28, 28, 30, 0.6) !important;
-    backdrop-filter: blur(20px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    /* Gunakan background yang sedikit lebih solid (opasitas dinaikkan ke 0.85 atau 0.9) */
+    background: rgba(28, 28, 30, 0.88) !important;
+    
+    /* Hapus atau nonaktifkan baris backdrop-filter karena memicu bug kotak hitam di FiveM */
+    /* backdrop-filter: blur(20px) saturate(180%) !important; */
+    /* -webkit-backdrop-filter: blur(20px) saturate(180%) !important; */
     
     border-radius: 28px !important;
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
     
     color: white !important;
     padding: 18px !important;
