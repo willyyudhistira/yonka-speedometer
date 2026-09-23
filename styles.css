@@ -21,15 +21,12 @@ html, body {
     bottom: 30px !important;
     right: 30px !important;
     width: 290px !important;
-    
-    /* Background aman dari kotak hitam */
     background-color: rgba(18, 22, 31, 0.9) !important;
-    
     border-radius: 20px !important;
     padding: 16px !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 14px !important;
+    gap: 12px !important;
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
@@ -91,6 +88,11 @@ html, body {
     border: 1px solid rgba(255, 255, 255, 0.02);
 }
 
+/* Membuat item Fuel & Health memakan penuh 2 kolom grid agar progress bar panjang */
+.metric-item.full-width {
+    grid-column: span 2;
+}
+
 .metric-item .material-symbols-rounded {
     font-size: 1.2rem;
     color: #38bdf8;
@@ -105,7 +107,14 @@ html, body {
 .metric-info {
     display: flex;
     flex-direction: column;
+    flex: 1;
     overflow: hidden;
+}
+
+.metric-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .metric-name {
@@ -120,7 +129,29 @@ html, body {
     font-size: 0.8rem;
     font-weight: 700;
     color: #f8fafc;
-    white-space: nowrap;
+}
+
+/* STYLING PROGRESS BAR */
+.progress-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    margin-top: 5px;
     overflow: hidden;
-    text-overflow: ellipsis;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 2px;
+    transition: width 0.2s ease-in-out;
+}
+
+.fuel-color {
+    background: #f59e0b; /* Warna Oranye/Kuning untuk Bensin */
+}
+
+.health-color {
+    background: #10b981; /* Warna Hijau untuk Health */
 }
