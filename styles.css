@@ -15,23 +15,19 @@ html, body {
     overflow: hidden;
 }
 
-/* KOTAK UTAMA - Tanpa border-radius sama sekali */
-main.speedometer {
+/* KOTAK UTAMA MENGGUNAKAN DIV */
+.speedometer {
     position: fixed !important;
     bottom: 25px !important;
     right: 25px !important;
     width: 280px !important;
     
-    /* Background dasar hitam transparan */
-    background-color: #000000AA !important;
+    /* Menggunakan rgba() standar agar aman dibaca oleh semua versi CEF FiveM */
+    background-color: rgba(0, 0, 0, 0.65) !important;
     
-    /* PENTING: border-radius di-nol-kan untuk menghindari bug kotak hitam CEF */
-    border-radius: 0px !important;
-    
+    border-radius: 8px !important;
     border: none !important;
     box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
     
     color: white !important;
     padding: 15px !important;
@@ -40,33 +36,27 @@ main.speedometer {
     gap: 15px !important;
 }
 
-section {
+.sec-left, .sec-right {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
-dl {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
     gap: 6px;
 }
 
-dt {
+.item {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
     font-size: 0.6rem;
     font-weight: bold;
     color: rgba(255, 255, 255, 0.6);
     text-transform: uppercase;
 }
 
-dt::after {
-    content: "" !important;
-}
-
-dd {
-    margin: 0;
+.value {
     font-size: 0.95rem;
     font-weight: bold;
     color: #ffffff;
