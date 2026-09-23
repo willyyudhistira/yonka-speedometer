@@ -1,27 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FiveM Speedometer - New UI</title>
+    <title>Custom Speedometer HUD</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="speedometer-hud">
-        <div class="speed-section">
-            <span id="speed">0 MPH</span>
-            <span class="gear-badge">G: <span id="gear">0</span></span>
+    <div class="speed-hud-wrapper">
+        <!-- Bagian Utama: Kecepatan & Gigi -->
+        <div class="hud-top-section">
+            <div class="speed-display">
+                <span id="speed">0 MPH</span>
+            </div>
+            <div class="gear-display">
+                <span class="gear-label">GEAR</span>
+                <span id="gear">0</span>
+            </div>
         </div>
-        
-        <div class="info-section">
-            <div class="info-row"><span>Eng:</span> <span id="engine">Off</span></div>
-            <div class="info-row"><span>RPM:</span> <span id="rpm">0.0000</span></div>
-            <div class="info-row"><span>Fuel:</span> <span id="fuel">0.0%</span></div>
-            <div class="info-row"><span>Hlt:</span> <span id="health">100.0%</span></div>
-            <div class="info-row"><span>Lgt:</span> <span id="headlights">Off</span></div>
-            <div class="info-row"><span>Ind:</span> <span id="indicators">Off / Off</span></div>
-            <div class="info-row"><span>Belt:</span> <span id="seatbelts">Off</span></div>
-            <div class="info-row"><span>Odo:</span> <span id="odometer">0.0 Miles</span></div>
+
+        <!-- Bagian Grid Data Kendaraan -->
+        <div class="hud-grid-section">
+            <div class="hud-card">
+                <span class="card-label">Engine</span>
+                <span class="card-value" id="engine">Off</span>
+            </div>
+            <div class="hud-card">
+                <span class="card-label">RPM</span>
+                <span class="card-value" id="rpm">0.0000</span>
+            </div>
+            <div class="hud-card">
+                <span class="card-label">Fuel</span>
+                <span class="card-value" id="fuel">0.0%</span>
+            </div>
+            <div class="hud-card">
+                <span class="card-label">Health</span>
+                <span class="card-value" id="health">100.0%</span>
+            </div>
+            <div class="hud-card">
+                <span class="card-label">Lights</span>
+                <span class="card-value" id="headlights">Off</span>
+            </div>
+            <div class="hud-card">
+                <span class="card-label">Indicators</span>
+                <span class="card-value" id="indicators">Off / Off</span>
+            </div>
+            <div class="hud-card">
+                <span class="card-label">Seatbelt</span>
+                <span class="card-value" id="seatbelts">Off</span>
+            </div>
+            <div class="hud-card">
+                <span class="card-label">Odometer</span>
+                <span class="card-value" id="odometer">0.0 Miles</span>
+            </div>
         </div>
     </div>
 
