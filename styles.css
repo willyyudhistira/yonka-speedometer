@@ -1,0 +1,140 @@
+* {
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-drag: none;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* UBAH ke 'transparent !important' saat Anda memasukkannya ke server FiveM */
+    background-color: #333333; 
+    
+    /* Menggunakan font bawaan sistem Apple (San Francisco) */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+/* KOTAK HUD UTAMA (iOS Frosted Glass) */
+.ios-hud {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    
+    /* Diperkecil menjadi 260px */
+    width: 260px; 
+    
+    /* Efek Blur khas iOS (Saturasi warna di balik HUD ditingkatkan) */
+    background: rgba(28, 28, 30, 0.55);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    
+    /* Sudut sangat membulat dan bayangan lembut */
+    border-radius: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Tipografi Label */
+.ios-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: rgba(235, 235, 245, 0.6); /* Warna abu-abu standar iOS Dark Mode */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- SEKSI ATAS --- */
+.ios-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 4px;
+}
+
+.speed-box, .gear-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.gear-box {
+    align-items: flex-end;
+}
+
+.ios-value-large {
+    font-size: 2.2rem; /* Ukuran diperkecil agar proporsional dengan lebar 260px */
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.5px;
+}
+
+/* --- SEKSI TENGAH (Grid Modul ala Control Center) --- */
+.ios-middle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.ios-metric {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Lingkaran pembungkus ikon */
+.icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+}
+
+.ios-metric .material-symbols-rounded {
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.ios-value {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* --- SEKSI BAWAH (Modul Kapsul Gabungan) --- */
+.ios-bottom {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 12px 16px;
+}
+
+.ios-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.status-icon {
+    font-size: 1.2rem;
+    color: rgba(235, 235, 245, 0.6);
+}
+
+.status-val {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #ffffff;
+}
