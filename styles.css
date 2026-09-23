@@ -15,81 +15,100 @@ html, body {
     overflow: hidden;
 }
 
-/* KONTAINER UTAMA */
-.speed-hud-wrapper {
+/* KONTAINER UTAMA HUD */
+.speedometer-hud {
     position: fixed !important;
     bottom: 30px !important;
     right: 30px !important;
-    width: 260px !important;
+    width: 290px !important;
     
-    /* Warna latar belakang solid gelap yang sangat stabil di CEF */
-    background-color: rgba(13, 17, 23, 0.92) !important;
+    /* Background aman dari kotak hitam */
+    background-color: rgba(18, 22, 31, 0.9) !important;
     
-    border-radius: 16px !important;
-    padding: 14px !important;
+    border-radius: 20px !important;
+    padding: 16px !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 12px !important;
-    
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    gap: 14px !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
-/* SECTION ATAS (SPEED & GEAR) */
-.hud-top-section {
+/* BAGIAN UTAMA (SPEED & GEAR) */
+.hud-main-display {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 10px 14px;
-    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+    padding: 12px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 #speed {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 800;
     color: #ffffff;
     letter-spacing: -0.5px;
 }
 
-.gear-display {
+.gear-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(0, 122, 255, 0.2);
-    padding: 4px 10px;
-    border-radius: 6px;
-    border: 1px solid rgba(0, 122, 255, 0.4);
+    background: rgba(56, 189, 248, 0.15);
+    padding: 6px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
 }
 
 .gear-label {
-    font-size: 0.55rem;
+    font-size: 0.5rem;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.5px;
 }
 
 #gear {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 800;
     color: #38bdf8;
 }
 
-/* SECTION BAWAH (GRID DATA) */
-.hud-grid-section {
+/* BAGIAN GRID INFORMASI */
+.hud-metrics-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
+    gap: 8px;
 }
 
-.hud-card {
+.metric-item {
     background: rgba(255, 255, 255, 0.03);
-    padding: 6px 10px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.metric-item .material-symbols-rounded {
+    font-size: 1.2rem;
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.1);
+    padding: 6px;
     border-radius: 8px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
-.card-label {
+.metric-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.metric-name {
     font-size: 0.55rem;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.5);
@@ -97,9 +116,11 @@ html, body {
     letter-spacing: 0.5px;
 }
 
-.card-value {
-    font-size: 0.85rem;
+.metric-val {
+    font-size: 0.8rem;
     font-weight: 700;
     color: #f8fafc;
-    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
