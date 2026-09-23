@@ -9,62 +9,97 @@
 html, body {
     background: transparent !important;
     background-color: transparent !important;
-    font-family: Arial, sans-serif;
-    font-size: 10pt;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 11pt;
     color: white;
     overflow: hidden;
 }
 
-/* Desain UI Baru: Clean Minimalist HUD */
-.speedometer-hud {
+/* KONTAINER UTAMA */
+.speed-hud-wrapper {
     position: fixed !important;
     bottom: 30px !important;
     right: 30px !important;
-    width: 220px !important;
-    background-color: rgba(10, 10, 10, 0.7) !important;
-    border-radius: 12px !important;
-    padding: 12px !important;
+    width: 260px !important;
+    
+    /* Warna latar belakang solid gelap yang sangat stabil di CEF */
+    background-color: rgba(13, 17, 23, 0.92) !important;
+    
+    border-radius: 16px !important;
+    padding: 14px !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 8px !important;
-    border: none !important;
-    box-shadow: none !important;
+    gap: 12px !important;
+    
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-.speed-section {
+/* SECTION ATAS (SPEED & GEAR) */
+.hud-top-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    padding-bottom: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 14px;
+    border-radius: 10px;
 }
 
 #speed {
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-size: 1.4rem;
+    font-weight: 800;
     color: #ffffff;
+    letter-spacing: -0.5px;
 }
 
-.gear-badge {
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #ffcc00;
-}
-
-.info-section {
+.gear-display {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    align-items: center;
+    background: rgba(0, 122, 255, 0.2);
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 122, 255, 0.4);
 }
 
-.info-row {
+.gear-label {
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#gear {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #38bdf8;
+}
+
+/* SECTION BAWAH (GRID DATA) */
+.hud-grid-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+}
+
+.hud-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 6px 10px;
+    border-radius: 8px;
     display: flex;
-    justify-content: space-between;
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.7);
+    flex-direction: column;
+    justify-content: center;
 }
 
-.info-row span:last-child {
-    font-weight: bold;
-    color: #ffffff;
+.card-label {
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-value {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-top: 2px;
 }
