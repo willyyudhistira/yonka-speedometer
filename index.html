@@ -10,6 +10,11 @@
 </head>
 <body>
     <div class="ios-speedometer">
+        <!-- Tombol Setting (Muncul saat di-hover) -->
+        <div class="settings-trigger" id="open-settings" title="Pengaturan Speedometer">
+            <span class="material-symbols-rounded">settings</span>
+        </div>
+
         <!-- Header Utama: Speed & Gear -->
         <div class="ios-header">
             <div class="speed-box">
@@ -82,6 +87,23 @@
                     <span class="material-symbols-rounded">route</span>
                     <span id="odometer">0.0 Miles</span>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pengaturan Ukuran -->
+    <div class="settings-modal-overlay" id="settings-modal">
+        <div class="settings-modal-card">
+            <div class="modal-title">
+                <span>Pengaturan Speedometer</span>
+                <span class="material-symbols-rounded" id="close-settings">close</span>
+            </div>
+            <div class="modal-content">
+                <div class="scale-info">
+                    <span>Skor Ukuran (Scale)</span>
+                    <span id="scale-text">100%</span>
+                </div>
+                <input type="range" id="scale-range" min="70" max="140" value="100" step="5">
             </div>
         </div>
     </div>
