@@ -8,139 +8,115 @@
 
 html, body {
     background: transparent !important;
-    background-color: transparent !important;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Roboto, sans-serif;
     font-size: 11pt;
     color: #ffffff;
     overflow: hidden;
 }
 
-/* KOTAK UTAMA ALA WIDGET iOS */
-.ios-speedometer {
-    position: fixed !important;
-    bottom: 25px !important;
-    right: 25px !important;
-    width: 250px !important;
-    background-color: rgba(28, 28, 30, 0.94) !important;
-    border-radius: 20px !important;
-    padding: 12px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 10px !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    
-    /* PENTING: Menjadikan titik tumpu (pivot) di kanan bawah */
-    transform-origin: bottom right !important; 
-    transition: transform 0.1s ease-out;
+/* WRAPPER DRAGGABLE */
+.speedo-wrapper {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Memastikan modal setting sejajar kanan dengan speedo */
+    cursor: grab;
+    z-index: 50;
 }
 
-/* TOMBOL SETTING (HANYA MUNCUL SAAT HOVER) */
+.speedo-wrapper:active {
+    cursor: grabbing;
+}
+
+/* TOMBOL SETTING (Di atas speedo, tersembunyi hingga di-hover) */
 .settings-trigger {
     position: absolute;
-    top: -10px;
-    left: -10px;
-    background-color: #2c2c2e;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    top: -45px;
+    right: 0;
+    background-color: rgba(28, 28, 30, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    
-    /* Disembunyikan secara total hingga di-hover */
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    
     transition: all 0.2s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    z-index: 10;
+    z-index: 100;
 }
 
-/* Tampilkan tombol saat speedometer di-hover */
-.ios-speedometer:hover .settings-trigger {
+/* Logika memunculkan tombol */
+.speedo-wrapper:hover .settings-trigger {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
 }
 
 .settings-trigger:hover {
-    transform: scale(1.15);
     background-color: #0a84ff;
+    transform: scale(1.1);
 }
 
 .settings-trigger .material-symbols-rounded {
     font-size: 18px;
-    color: #ffffff;
 }
 
-/* MODAL OVERLAY (POPUP) */
-.settings-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.3); /* Latar belakang digelapkan sedikit */
-    display: none;
-    
-    /* Mengatur posisi Pop-up ke Kanan Atas */
-    justify-content: flex-end; 
-    align-items: flex-start;
-    padding: 25px 25px; /* Jarak dari sudut kanan atas */
-    
-    z-index: 9999;
-}
-
-.settings-modal-overlay.active {
-    display: flex;
-}
-
-.settings-modal-card {
+/* PANEL SETTING HUD (Muncul di atas speedo) */
+.settings-panel {
+    position: absolute;
+    bottom: calc(100% + 15px); /* Selalu berada di atas speedo */
+    right: 0;
+    width: 250px;
     background-color: rgba(30, 30, 32, 0.96);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 18px;
-    width: 260px;
-    padding: 18px;
-    display: flex;
+    padding: 16px;
+    display: none; /* Disembunyikan secara default */
     flex-direction: column;
     gap: 14px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-    
-    /* Animasi muncul dari atas */
-    animation: slideDown 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: default; /* Mematikan kursor grab pada panel ini */
+    z-index: 200;
+    animation: popUp 0.2s ease-out;
 }
 
-@keyframes slideDown {
-    from { transform: translateY(-20px); opacity: 0; }
+.speedo-wrapper.setting-mode .settings-panel {
+    display: flex; /* Ditampilkan saat mode setting aktif */
+}
+.speedo-wrapper.setting-mode .settings-trigger {
+    display: none; /* Sembunyikan tombol kecil jika panel terbuka */
+}
+
+@keyframes popUp {
+    from { transform: translateY(10px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
 
-.modal-title {
+.panel-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    color: #ffffff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 10px;
+    padding-bottom: 8px;
 }
 
-.modal-title .material-symbols-rounded {
-    font-size: 20px;
+#close-settings {
     cursor: pointer;
+    font-size: 18px;
     color: #8e8e93;
-    transition: color 0.2s;
 }
+#close-settings:hover { color: #ff453a; }
 
-.modal-title .material-symbols-rounded:hover {
-    color: #ff453a; /* iOS Red saat tombol silang dihover */
-}
-
-.modal-content {
+.panel-content {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -149,7 +125,7 @@ html, body {
 .scale-info {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.7);
     font-weight: 600;
 }
@@ -158,154 +134,58 @@ html, body {
     width: 100%;
     accent-color: #0a84ff;
     cursor: pointer;
-    height: 6px;
 }
 
-/* HEADER: SPEED & GEAR */
-.ios-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.06);
-    padding: 10px 14px;
-    border-radius: 14px;
-}
-
-#speed {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: -0.3px;
-}
-
-.gear-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: rgba(10, 132, 255, 0.2);
-    padding: 4px 10px;
+.reset-btn {
+    margin-top: 5px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ff453a;
+    padding: 8px;
     border-radius: 8px;
-    border: 1px solid rgba(10, 132, 255, 0.4);
-}
-
-.sub-label {
-    font-size: 0.45rem;
     font-weight: 600;
-    color: rgba(235, 235, 245, 0.6);
-    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.reset-btn:hover {
+    background: rgba(255, 69, 58, 0.2);
 }
 
-#gear {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #0a84ff;
-}
-
-/* METRICS STACK */
-.ios-metrics {
+/* KOTAK SPEEDOMETER UTAMA (Akan diubah ukurannya/di-scale) */
+.ios-speedometer {
+    width: 250px;
+    background-color: rgba(28, 28, 30, 0.94);
+    border-radius: 20px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    /* Pivot di Kanan Atas agar saat di-scale tidak menimpa Panel Setting */
+    transform-origin: top right; 
 }
 
-.row-duo {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-}
-
-.mini-badge {
-    background: rgba(255, 255, 255, 0.04);
-    padding: 6px 4px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    transition: all 0.2s ease;
-}
-
-.mini-badge .material-symbols-rounded {
-    font-size: 1rem;
-    color: #8e8e93;
-}
-
-.mini-badge span:last-child {
-    font-size: 0.6rem;
-    font-weight: 600;
-    color: #8e8e93;
-}
-
-.mini-badge.active {
-    background: rgba(48, 209, 88, 0.12);
-    border-color: rgba(48, 209, 88, 0.3);
-}
-
-.mini-badge.active .material-symbols-rounded,
-.mini-badge.active span:last-child {
-    color: #30d158;
-}
-
-.progress-card {
-    background: rgba(255, 255, 255, 0.04);
-    padding: 6px 10px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.card-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.65rem;
-    font-weight: 600;
-    color: rgba(235, 235, 245, 0.6);
-}
-
-.card-info span:last-child {
-    color: #ffffff;
-}
-
-.ios-track {
-    width: 100%;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 1.5px;
-    overflow: hidden;
-}
-
-.ios-fill {
-    height: 100%;
-    width: 0%;
-    border-radius: 1.5px;
-    transition: width 0.15s ease-out;
-}
-
+/* --- SISA STYLING UI SPEEDOMETER SAMA SEPERTI SEBELUMNYA --- */
+.ios-header { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.06); padding: 10px 14px; border-radius: 14px; }
+#speed { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.3px; }
+.gear-box { display: flex; flex-direction: column; align-items: center; background: rgba(10, 132, 255, 0.2); padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(10, 132, 255, 0.4); }
+.sub-label { font-size: 0.45rem; font-weight: 600; color: rgba(235, 235, 245, 0.6); letter-spacing: 0.5px; }
+#gear { font-size: 1.1rem; font-weight: 700; color: #0a84ff; }
+.ios-metrics { display: flex; flex-direction: column; gap: 6px; }
+.row-duo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.mini-badge { background: rgba(255, 255, 255, 0.04); padding: 6px 4px; border-radius: 10px; display: flex; flex-direction: column; align-items: center; gap: 2px; border: 1px solid rgba(255, 255, 255, 0.03); transition: all 0.2s ease; }
+.mini-badge .material-symbols-rounded { font-size: 1rem; color: #8e8e93; }
+.mini-badge span:last-child { font-size: 0.6rem; font-weight: 600; color: #8e8e93; }
+.mini-badge.active { background: rgba(48, 209, 88, 0.12); border-color: rgba(48, 209, 88, 0.3); }
+.mini-badge.active .material-symbols-rounded, .mini-badge.active span:last-child { color: #30d158; }
+.progress-card { background: rgba(255, 255, 255, 0.04); padding: 6px 10px; border-radius: 10px; display: flex; flex-direction: column; gap: 4px; }
+.card-info { display: flex; justify-content: space-between; align-items: center; font-size: 0.65rem; font-weight: 600; color: rgba(235, 235, 245, 0.6); }
+.card-info span:last-child { color: #ffffff; }
+.ios-track { width: 100%; height: 3px; background: rgba(255, 255, 255, 0.1); border-radius: 1.5px; overflow: hidden; }
+.ios-fill { height: 100%; width: 0%; border-radius: 1.5px; transition: width 0.15s ease-out; }
 .rpm-color { background: #0a84ff; }
 .fuel-color { background: #ff9f0a; }
 .health-color { background: #30d158; }
-
-.ios-footer-row {
-    display: flex;
-    justify-content: space-between;
-    background: rgba(255, 255, 255, 0.04);
-    padding: 6px 10px;
-    border-radius: 10px;
-    font-size: 0.7rem;
-}
-
-.footer-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: rgba(235, 235, 245, 0.8);
-    font-weight: 600;
-}
-
-.footer-item .material-symbols-rounded {
-    font-size: 1rem;
-    color: #0a84ff;
-}
+.ios-footer-row { display: flex; justify-content: space-between; background: rgba(255, 255, 255, 0.04); padding: 6px 10px; border-radius: 10px; font-size: 0.7rem; }
+.footer-item { display: flex; align-items: center; gap: 6px; color: rgba(235, 235, 245, 0.8); font-weight: 600; }
+.footer-item .material-symbols-rounded { font-size: 1rem; color: #0a84ff; }
