@@ -139,4 +139,44 @@ document.addEventListener('DOMContentLoaded', () => {
         seatbelts: document.getElementById('seatbelts'),
         odometer: document.getElementById('odometer'),
     };
+
+    // Logika Setting & Modal Ukuran
+    const speedometerCard = document.querySelector('.ios-speedometer');
+    const openSettingsBtn = document.getElementById('open-settings');
+    const closeSettingsBtn = document.getElementById('close-settings');
+    const settingsModal = document.getElementById('settings-modal');
+    const scaleRange = document.getElementById('scale-range');
+    const scaleText = document.getElementById('scale-text');
+
+    // Muat skala ukuran yang tersimpan sebelumnya (jika ada)
+    const savedScale = localStorage.getItem('speedo_scale');
+    if (savedScale) {
+        speedometerCard.style.transform = `scale(${savedScale})`;
+        scaleRange.value = Math.round(savedScale * 100);
+        scaleText.innerText = `${Math.round(savedScale * 100)}%`;
+    }
+
+    openSettingsBtn.addEventListener('click', () => {
+        settingsModal.classList.add('active');
+    });
+
+    closeSettingsBtn.addEventListener('click', () => {
+        settingsModal.classList.remove('active');
+    });
+
+    // Tutup modal jika mengklik area gelap di luar card modal
+    settingsModal.addEventListener('click', (e) => {
+        if (e.target === settingsModal) {
+            settingsModal.classList.remove('active');
+        }
+    });
+
+    // Ubah ukuran secara real-time saat slider digeser
+    scaleRange.addEventListener('input', (e) => {
+        const val = e.target.value;
+        const scaleValue = val / 100;
+        scaleText.innerText = `${val}%`;
+        speedometerCard.style.transform = `scale(${scaleValue})`;
+        localStorage.setItem('speedo_scale', scaleValue);
+    });
 });
