@@ -21,7 +21,7 @@ html, body {
     right: 25px;
     display: flex;
     flex-direction: column;
-    align-items: flex-end; /* Memastikan modal setting sejajar kanan dengan speedo */
+    align-items: flex-end;
     cursor: grab;
     z-index: 50;
 }
@@ -30,7 +30,18 @@ html, body {
     cursor: grabbing;
 }
 
-/* TOMBOL SETTING (Di atas speedo, tersembunyi hingga di-hover) */
+/* PENTING: Jembatan tak terlihat agar hover tidak terputus saat mouse naik ke tombol */
+.speedo-wrapper::after {
+    content: "";
+    position: absolute;
+    top: -50px; /* Memanjang 50px ke atas menutupi celah */
+    left: 0;
+    width: 100%;
+    height: 50px;
+    z-index: -1;
+}
+
+/* TOMBOL SETTING */
 .settings-trigger {
     position: absolute;
     top: -45px;
@@ -52,7 +63,7 @@ html, body {
     z-index: 100;
 }
 
-/* Logika memunculkan tombol */
+/* Logika hover memunculkan tombol */
 .speedo-wrapper:hover .settings-trigger {
     opacity: 1;
     visibility: visible;
@@ -68,30 +79,30 @@ html, body {
     font-size: 18px;
 }
 
-/* PANEL SETTING HUD (Muncul di atas speedo) */
+/* PANEL SETTING HUD */
 .settings-panel {
     position: absolute;
-    bottom: calc(100% + 15px); /* Selalu berada di atas speedo */
+    bottom: calc(100% + 15px);
     right: 0;
     width: 250px;
     background-color: rgba(30, 30, 32, 0.96);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 18px;
     padding: 16px;
-    display: none; /* Disembunyikan secara default */
+    display: none;
     flex-direction: column;
     gap: 14px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-    cursor: default; /* Mematikan kursor grab pada panel ini */
+    cursor: default;
     z-index: 200;
     animation: popUp 0.2s ease-out;
 }
 
 .speedo-wrapper.setting-mode .settings-panel {
-    display: flex; /* Ditampilkan saat mode setting aktif */
+    display: flex; 
 }
 .speedo-wrapper.setting-mode .settings-trigger {
-    display: none; /* Sembunyikan tombol kecil jika panel terbuka */
+    display: none; 
 }
 
 @keyframes popUp {
@@ -147,11 +158,9 @@ html, body {
     cursor: pointer;
     transition: 0.2s;
 }
-.reset-btn:hover {
-    background: rgba(255, 69, 58, 0.2);
-}
+.reset-btn:hover { background: rgba(255, 69, 58, 0.2); }
 
-/* KOTAK SPEEDOMETER UTAMA (Akan diubah ukurannya/di-scale) */
+/* KOTAK SPEEDOMETER UTAMA */
 .ios-speedometer {
     width: 250px;
     background-color: rgba(28, 28, 30, 0.94);
@@ -161,11 +170,10 @@ html, body {
     flex-direction: column;
     gap: 10px;
     border: 1px solid rgba(255, 255, 255, 0.12);
-    /* Pivot di Kanan Atas agar saat di-scale tidak menimpa Panel Setting */
     transform-origin: top right; 
 }
 
-/* --- SISA STYLING UI SPEEDOMETER SAMA SEPERTI SEBELUMNYA --- */
+/* SISA UI SEPERTI BIASA */
 .ios-header { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.06); padding: 10px 14px; border-radius: 14px; }
 #speed { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.3px; }
 .gear-box { display: flex; flex-direction: column; align-items: center; background: rgba(10, 132, 255, 0.2); padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(10, 132, 255, 0.4); }
