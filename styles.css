@@ -28,32 +28,42 @@ html, body {
     flex-direction: column !important;
     gap: 10px !important;
     border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    transform-origin: bottom right; /* PENTING: Skala berpusat dari sudut kanan bawah */
+    
+    /* PENTING: Menjadikan titik tumpu (pivot) di kanan bawah */
+    transform-origin: bottom right !important; 
     transition: transform 0.1s ease-out;
 }
 
-/* TOMBOL SETTING (MUNCUL SAAT HOVER) */
+/* TOMBOL SETTING (HANYA MUNCUL SAAT HOVER) */
 .settings-trigger {
     position: absolute;
-    top: -8px;
-    left: -8px;
+    top: -10px;
+    left: -10px;
     background-color: #2c2c2e;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    
+    /* Disembunyikan secara total hingga di-hover */
     opacity: 0;
-    transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+    visibility: hidden;
+    pointer-events: none;
+    
+    transition: all 0.2s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     z-index: 10;
 }
 
+/* Tampilkan tombol saat speedometer di-hover */
 .ios-speedometer:hover .settings-trigger {
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 .settings-trigger:hover {
@@ -62,21 +72,25 @@ html, body {
 }
 
 .settings-trigger .material-symbols-rounded {
-    font-size: 16px;
+    font-size: 18px;
     color: #ffffff;
 }
 
-/* MODAL OVERLAY */
+/* MODAL OVERLAY (POPUP) */
 .settings-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3); /* Latar belakang digelapkan sedikit */
     display: none;
-    justify-content: center;
-    align-items: center;
+    
+    /* Mengatur posisi Pop-up ke Kanan Atas */
+    justify-content: flex-end; 
+    align-items: flex-start;
+    padding: 25px 25px; /* Jarak dari sudut kanan atas */
+    
     z-index: 9999;
 }
 
@@ -88,46 +102,54 @@ html, body {
     background-color: rgba(30, 30, 32, 0.96);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 18px;
-    width: 250px;
-    padding: 16px;
+    width: 260px;
+    padding: 18px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    
+    /* Animasi muncul dari atas */
+    animation: slideDown 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 .modal-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 700;
     color: #ffffff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 8px;
+    padding-bottom: 10px;
 }
 
 .modal-title .material-symbols-rounded {
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     color: #8e8e93;
     transition: color 0.2s;
 }
 
 .modal-title .material-symbols-rounded:hover {
-    color: #ffffff;
+    color: #ff453a; /* iOS Red saat tombol silang dihover */
 }
 
 .modal-content {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .scale-info {
     display: flex;
     justify-content: space-between;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.7);
     font-weight: 600;
 }
